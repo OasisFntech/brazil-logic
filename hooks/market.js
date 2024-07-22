@@ -132,9 +132,10 @@ export const useMarketHooks = () => {
 
     // 分时，1、5、15、30分 数据使用接口
     const onGetDoAction = async (url) => {
+        console.log('country',country)
         const res = await api_fetch({
             url: `${COMMON_API_PATH.DO}?event=${url}`,
-            params: doParams([ totalMarketCode.value ], { url })
+            params: doParams([ totalMarketCode.value ], { url },{country:'br'})
         })
 
         const resParse = utils_base64(res)
