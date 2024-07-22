@@ -81,6 +81,7 @@ export const useMarketHooks = () => {
      * */
     const onChangeKLineType = async (type) => {
         chartType.value = type
+        console.log('切换行情图类型',type)
         onCloseAllSocket()
 
         switch (type) {
@@ -132,13 +133,14 @@ export const useMarketHooks = () => {
 
     // 分时，1、5、15、30分 数据使用接口
     const onGetDoAction = async (url) => {
-        console.log('country',country)
         const res = await api_fetch({
             url: `${COMMON_API_PATH.DO}?event=${url}`,
             params: doParams([ totalMarketCode.value ], { url },{country:'br'})
         })
 
         const resParse = utils_base64(res)
+
+        console.log('分时，1、5、15、30分 数据使用接口',resParse)
 
         // 分时渲染图表
         if (url === SOCKET_URL.REAL_TIME) renderRealTimeChart(resParse)
@@ -163,7 +165,8 @@ export const useMarketHooks = () => {
             params: {
                 period,
                 stockCode: totalMarketCode.value,
-                type: 1
+                type: 1,
+                counrty:'br'
             }
         })
 

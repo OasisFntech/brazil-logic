@@ -4,7 +4,8 @@ import { api_fetch, COMMON_API_PATH } from '../fetch'
 import { useCountdown } from './countdown'
 import { useMobileLogin } from './login'
 
-export const useSms = (name, { successTip, errorTip }) => {
+export const useSms = (name, { successTip, errorTip, tipText }) => {
+    console.log('tipText',tipText)
     const { countdown, onCountdown } = useCountdown(name)
     const { updateCode, formState } = useMobileLogin()
 
@@ -34,7 +35,7 @@ export const useSms = (name, { successTip, errorTip }) => {
                         returnAll: true,
                     }
                 })
-                successTip?.('短信验证码已发送，请注意查收')
+                successTip?.(tipText)
                 onCountdown()
                 if(code===1 && message){
                     updateCode(message)
