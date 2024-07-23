@@ -439,6 +439,7 @@ export const useMarketHooks = () => {
         loading: raiseFallLoading
     } = useRequest({
         url: `${COMMON_API_PATH.DO}?event=${SOCKET_URL.RAISE_FALL}`,
+        params:doParams([COUNTRY],{ country:COUNTRY }),
         manual: true,
         initialValues: [],
         formatResult: res => utils_base64(res),
