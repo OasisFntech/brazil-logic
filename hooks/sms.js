@@ -5,7 +5,6 @@ import { useCountdown } from './countdown'
 import { useMobileLogin } from './login'
 
 export const useSms = (name, { successTip, errorTip, tipText }) => {
-    console.log('tipText',tipText)
     const { countdown, onCountdown } = useCountdown(name)
     const { updateCode, formState } = useMobileLogin()
 
@@ -25,12 +24,12 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
 
 
     // 发送短信验证码
-    const onSendSms = async (phone) => {
+    const onSendSms = async (phone,area) => {
         if (!loading.value) {
             loading.value = true
             try {
                 const { code, message } = await api_fetch({
-                    url: COMMON_API_PATH.SMS_SEND + phone,
+                    url: `${COMMON_API_PATH.SMS_SEND}${area}/${phone}`,
                     options: {
                         returnAll: true,
                     }

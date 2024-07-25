@@ -81,7 +81,6 @@ export const useMarketHooks = () => {
      * */
     const onChangeKLineType = async (type) => {
         chartType.value = type
-        console.log('切换行情图类型',type)
         onCloseAllSocket()
 
         switch (type) {
@@ -139,8 +138,6 @@ export const useMarketHooks = () => {
         })
 
         const resParse = utils_base64(res)
-
-        console.log('分时，1、5、15、30分 数据使用接口',resParse)
 
         // 分时渲染图表
         if (url === SOCKET_URL.REAL_TIME) renderRealTimeChart(resParse)
