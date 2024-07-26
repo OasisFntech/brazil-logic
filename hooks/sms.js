@@ -30,7 +30,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
                 if (area === '86') {
                     return /^1[3-9]\d{9}$/.test(phone)
                 } else if (area === '55') {
-                    return /^[89]\d{8}$/.test(phone)
+                    return /^(?:\(?(\d{2})\)?\s?)?9\d{4}-?\d{4}$/.test(phone)
                 }
                 return false
             }
