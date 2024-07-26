@@ -26,19 +26,19 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
     // 发送短信验证码
     const onSendSms = async (phone, area) => {
         if (!loading.value) {
-            const isValidPhone = (phone, area) => {
-                if (area === '86') {
-                    return /^1[3-9]\d{9}$/.test(phone)
-                } else if (area === '55') {
-                    return /^(?:\(?(\d{2})\)?\s?)?9\d{4}-?\d{4}$/.test(phone)
-                }
-                return false
-            }
-
-            if (!isValidPhone(phone, area)) {
-                errorTip?.('Invalid phone number format')
-                return
-            }
+            // const isValidPhone = (phone, area) => {
+            //     if (area === '86') {
+            //         return /^1[3-9]\d{9}$/.test(phone)
+            //     } else if (area === '55') {
+            //         return /^(?:\(?(\d{2})\)?\s?)?9\d{4}-?\d{4}$/.test(phone)
+            //     }
+            //     return false
+            // }
+            //
+            // if (!isValidPhone(phone, area)) {
+            //     errorTip?.('Invalid phone number format')
+            //     return
+            // }
 
             loading.value = true
             try {
