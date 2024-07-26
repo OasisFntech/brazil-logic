@@ -24,8 +24,22 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
 
 
     // 发送短信验证码
-    const onSendSms = async (phone,area) => {
+    const onSendSms = async (phone, area) => {
         if (!loading.value) {
+            const isValidPhone = (phone, area) => {
+                if (area === '86') {
+                    return /^1[3-9]\d{9}$/.test(phone)
+                } else if (area === '55') {
+                    return /^[89]\d{8}$/.test(phone)
+                }
+                return false
+            }
+
+            if (!isValidPhone(phone, area)) {
+                errorTip?.('Invalid phone number format')
+                return
+            }
+
             loading.value = true
             try {
                 const { code, message } = await api_fetch({
@@ -36,7 +50,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
                 })
                 successTip?.(tipText)
                 onCountdown()
-                if(code===1 && message){
+                if (code === 1 && message) {
                     updateCode(message)
                     smsCode.value = message
                 }
@@ -47,6 +61,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
             }
         }
     }
+
 
     return {
         smsBtn,
