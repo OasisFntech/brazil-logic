@@ -252,5 +252,5 @@ export const formatDateTime_bx = (dateTime, options = {}) => {
     };
 
     const formattedDate = formatDate(dateFormat)
-    return `${formattedDate} ${time}`
+    return `${formattedDate} ${time ?? ''}`
 }
