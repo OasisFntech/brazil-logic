@@ -91,6 +91,21 @@ export const utils_amount_chinesization = (amount, options) => {
     return (base + remainder).toFixed(fixed) + '千亿'
 }
 
+export const utils_amount_bx = (amount, options) => {
+    const { showThousand, fixed } = {
+        showThousand: true,
+        fixed: 2,
+        ...options
+    }
+
+    let base = 0,
+        remainder = 0
+
+    if (isNaN(amount)) return '--'
+
+    return amount.toFixed(fixed)
+}
+
 export const utils_number_format = (number, options) => {
     if (isNaN(number)) {
         return number
