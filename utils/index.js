@@ -227,3 +227,30 @@ export const utils_colorful = (value, defaultColor = 'text-gray-400') => {
 
     return color
 }
+
+// 巴西转时间格式
+export const formatDateTime_bx = (dateTime, options = {}) => {
+    const { dateFormat = 'MM-DD-YYYY', timeFormat = 'HH:mm:ss' } = {
+        dateFormat: 'MM-DD-YYYY',
+        timeFormat: 'HH:mm:ss',
+        ...options
+    }
+    const [date, time] = dateTime.split(' ')
+    const [year, month, day] = date.split('-')
+
+    const formatDate = (format) => {
+        switch (format) {
+            case 'MM-DD-YYYY':
+                return `${month}-${day}-${year}`
+            case 'DD-MM-YYYY':
+                return `${day}-${month}-${year}`
+            case 'YYYY-MM-DD':
+                return `${year}-${month}-${day}`
+            default:
+                return `${month}-${day}-${year}`
+        }
+    };
+
+    const formattedDate = formatDate(dateFormat)
+    return `${formattedDate} ${time}`
+}
