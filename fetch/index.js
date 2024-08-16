@@ -61,7 +61,7 @@ export function useRequest({
 }) {
     const response = ref(initialValues),
         loading = ref(false)
-
+    console.log('1111',options)
     const requestParams = computed(() => isRef(params) ? params.value : params)
 
     const run = async(runParams) => {
@@ -77,7 +77,7 @@ export function useRequest({
                 }
                 if(options) params.options = options
                 const res = await api_fetch({
-                    params
+                    ...params
                 })
                 response.value = formatResult ? formatResult(res) : res
                 onSuccess?.(response.value, actualParams)
