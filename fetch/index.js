@@ -49,6 +49,7 @@ export function api_fetch({ url, params, method = 'post', options }) {
 }
 
 export function useRequest({
+    options,
     url,
     params,
     method,
@@ -69,10 +70,14 @@ export function useRequest({
 
             const actualParams = runParams ?? requestParams.value
             try {
-                const res = await api_fetch({
+                const params = {
                     url,
                     params: actualParams,
                     method
+                }
+                if(options) params.options = options
+                const res = await api_fetch({
+                    params
                 })
                 response.value = formatResult ? formatResult(res) : res
                 onSuccess?.(response.value, actualParams)
