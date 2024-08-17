@@ -288,7 +288,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             break
     }
 
-    return currency(amount, formatOptions).format()
+    return currency(amount, formatOptions)
 }
 
 
