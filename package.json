@@ -26,6 +26,7 @@
         "socket.io-client": "^2.3.0",
         "uuid": "^9.0.1",
         "vue": "^3.3.4",
-        "vue-echarts": "^6.6.1"
+        "vue-echarts": "^6.6.1",
+        "currency.js": "^2.0.4"
     }
 }

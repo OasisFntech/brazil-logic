@@ -1,6 +1,7 @@
 import { inflate } from 'pako'
 import { useClipboard } from '@vueuse/core'
 import _ from 'lodash'
+import currency from 'currency.js'
 
 export * from './charts'
 export * from './stock'
@@ -254,3 +255,40 @@ export const formatDateTime_bx = (dateTime, options = {}) => {
     const formattedDate = formatDate(dateFormat)
     return `${formattedDate} ${time ?? ''}`
 }
+
+// 根据不同国家的货币格式化金额
+export const utils_currency_convert = (amount, options = {}) => {
+    const { countryCode = 'BR', fixed = 2, showSymbol = true } = options
+
+    let symbol = ''
+    let formatOptions = {
+        precision: fixed
+    }
+
+    switch (countryCode) {
+        case 'BR': // 巴西
+            symbol = 'R$'
+            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
+            break
+        case 'US': // 美国
+            symbol = '$'
+            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s%v' : '%v' }
+            break
+        case 'ID': // 印尼
+            symbol = 'Rp'
+            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
+            break
+        case 'NG': // 尼日利亚
+            symbol = '₦'
+            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
+            break
+        default:
+            symbol = '$'
+            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s%v' : '%v' }
+            break
+    }
+
+    return currency(amount, formatOptions).format()
+}
+
+
