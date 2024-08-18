@@ -258,37 +258,33 @@ export const formatDateTime_bx = (dateTime, options = {}) => {
 
 // 根据不同国家的货币格式化金额
 export const utils_currency_convert = (amount, options = {}) => {
-    const { countryCode = 'BR', fixed = 2, showSymbol = true } = options
+    const { countryCode = 'BR', fixed = 2, showSymbol = false } = options
 
     let symbol = ''
     let formatOptions = {
         precision: fixed
     }
 
-    switch (countryCode) {
-        case 'BR': // 巴西
-            symbol = 'R$'
-            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
-            break
-        case 'US': // 美国
-            symbol = '$'
-            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s%v' : '%v' }
-            break
-        case 'ID': // 印尼
-            symbol = 'Rp'
-            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
-            break
-        case 'NG': // 尼日利亚
-            symbol = '₦'
-            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s %v' : '%v' }
-            break
-        default:
-            symbol = '$'
-            formatOptions = { ...formatOptions, symbol, format: showSymbol ? '%s%v' : '%v' }
-            break
+    if (showSymbol) {
+        switch (countryCode) {
+            case 'BR': // 巴西
+                symbol = 'R$'
+                break
+            case 'US': // 美国
+                symbol = '$'
+                break
+            case 'ID': // 印尼
+                symbol = 'Rp'
+                break
+            case 'NG': // 尼日利亚
+                symbol = '₦'
+                break
+            default:
+                symbol = '$'
+                break
+        }
     }
 
-    return currency(amount, formatOptions)
+    return currency(amount, { ...formatOptions, symbol }).format()
 }
-
 
