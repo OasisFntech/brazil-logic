@@ -61,7 +61,6 @@ export function useRequest({
 }) {
     const response = ref(initialValues),
         loading = ref(false)
-    console.log('1111',options)
     const requestParams = computed(() => isRef(params) ? params.value : params)
 
     const run = async(runParams) => {
