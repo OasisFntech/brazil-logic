@@ -258,7 +258,7 @@ export const formatDateTime_bx = (dateTime, options = {}) => {
 
 // 根据不同国家的货币格式化金额
 export const utils_currency_convert = (amount, options = {}) => {
-    const { countryCode = 'BR', fixed = 2, showSymbol = false } = options
+    const { countryCode = 'BRL', fixed = 2, showSymbol = false } = options
 
     let symbol = ''
     let formatOptions = {
@@ -267,8 +267,10 @@ export const utils_currency_convert = (amount, options = {}) => {
 
     if (showSymbol) {
         switch (countryCode) {
-            case 'BR': // 巴西
+            case 'BRL': // 巴西
                 symbol = 'R$'
+                formatOptions.separator = '.'
+                formatOptions.decimal = ','
                 break
             case 'US': // 美国
                 symbol = '$'
