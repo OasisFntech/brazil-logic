@@ -10,8 +10,7 @@ import {
     utils_timeParser,
     utils_renderTooltip,
     utils_kLineCalculateMA,
-    utils_renderRealTimeChart,
-    utils_table_render_amount
+    utils_renderRealTimeChart
 } from '../utils'
 import {
     COMMON_API_PATH,
@@ -30,7 +29,7 @@ import {
 import { useRaiseFallColor } from './index'
 import { useStockMarketStore } from '../store'
 
-export const useMarketHooks = () => {
+export const useMarketHooks = (country = 'br') => {
     // 当前大盘的股票代码
     const totalMarketCode = ref(''),
         // 当前行情图表类型
@@ -42,7 +41,7 @@ export const useMarketHooks = () => {
 
     // 大盘指数数据
     const { response: totalMarket } = useRequest({
-        url: `${COMMON_API_PATH.DO}?event=${SOCKET_URL.TOTAL_MARKETS}`,
+        url: `${COMMON_API_PATH.DO}?event=${SOCKET_URL.TOTAL_MARKETS}&country=${country}`,
         params: doParams([], { url: SOCKET_URL.TOTAL_MARKETS }),
         initialValues: {
             fellNum: 0,
@@ -133,8 +132,8 @@ export const useMarketHooks = () => {
     // 分时，1、5、15、30分 数据使用接口
     const onGetDoAction = async (url) => {
         const res = await api_fetch({
-            url: `${COMMON_API_PATH.DO}?event=${url}`,
-            params: doParams([ totalMarketCode.value ], { url },{country:'br'})
+            url: `${COMMON_API_PATH.DO}?event=${url}&country=${country}`,
+            params: doParams([ totalMarketCode.value ], { url })
         })
 
         const resParse = utils_base64(res)
@@ -158,12 +157,11 @@ export const useMarketHooks = () => {
     // 获取 K 线图数据；日K、周K、月K
     const onGetKLine = async (period) => {
         const { kLineData } = await api_fetch({
-            url: COMMON_API_PATH.K_LINE,
+            url: `${COMMON_API_PATH.K_LINE}?country=${country}`,
             params: {
                 period,
                 stockCode: totalMarketCode.value,
-                type: 1,
-                counrty:'br'
+                type: 1
             }
         })
 
@@ -435,8 +433,8 @@ export const useMarketHooks = () => {
         run: raiseFallRun,
         loading: raiseFallLoading
     } = useRequest({
-        url: `${COMMON_API_PATH.DO}?event=${SOCKET_URL.RAISE_FALL}`,
-        params:doParams([COUNTRY],{ country:COUNTRY }),
+        url: `${COMMON_API_PATH.DO}?event=${SOCKET_URL.RAISE_FALL}&country=${country}`,
+        params:doParams(),
         manual: true,
         initialValues: [],
         formatResult: res => utils_base64(res),
