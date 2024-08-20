@@ -265,26 +265,30 @@ export const utils_currency_convert = (amount, options = {}) => {
         precision: fixed
     }
 
-    if (showSymbol) {
-        switch (countryCode) {
-            case 'BRL': // 巴西
-                symbol = 'R$'
-                formatOptions.separator = '.'
-                formatOptions.decimal = ','
-                break
-            case 'US': // 美国
-                symbol = '$'
-                break
-            case 'ID': // 印尼
-                symbol = 'Rp'
-                break
-            case 'NG': // 尼日利亚
-                symbol = '₦'
-                break
-            default:
-                symbol = '$'
-                break
-        }
+    switch (countryCode) {
+        case 'BRL': // 巴西
+            symbol = 'R$'
+            formatOptions.separator = '.'
+            formatOptions.decimal = ','
+            break
+        case 'US': // 美国
+            symbol = '$'
+            break
+        case 'ID': // 印尼
+            symbol = 'Rp'
+            formatOptions.separator = '.'
+            formatOptions.decimal = ','
+            break
+        case 'NG': // 尼日利亚
+            symbol = '₦'
+            break
+        default:
+            symbol = '$'
+            break
+    }
+
+    if (!showSymbol) {
+        symbol = ''
     }
 
     return currency(amount, { ...formatOptions, symbol }).format()
