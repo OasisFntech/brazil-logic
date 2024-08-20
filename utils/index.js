@@ -291,6 +291,6 @@ export const utils_currency_convert = (amount, options = {}) => {
         symbol = ''
     }
 
-    return currency(amount, { ...formatOptions, symbol }).format()
+    return currency(amount, { ...formatOptions, symbol })
 }
 
