@@ -64,7 +64,8 @@ export function useRequest({
     const requestParams = computed(() => isRef(params) ? params.value : params)
     console.log('111',loading)
     const run = async(runParams) => {
-        if (loading.value) {
+        loading.value = false
+        if (!loading.value) {
             loading.value = true
             console.log('222',loading)
             const actualParams = runParams ?? requestParams.value
