@@ -60,14 +60,11 @@ export function useRequest({
     onErr,
 }) {
     const response = ref(initialValues),
-        loading = ref(true)
+        loading = ref(false)
     const requestParams = computed(() => isRef(params) ? params.value : params)
-    console.log('111',loading)
     const run = async(runParams) => {
-        loading.value = false
         if (!loading.value) {
             loading.value = true
-            console.log('222',loading)
             const actualParams = runParams ?? requestParams.value
             try {
                 const params = {
@@ -201,13 +198,11 @@ export function usePagination(
     })
 
     const onRefresh = async() => {
-        console.log('onRefresh')
         pagination.value[current] = 1
         await run(requestParams.value)
     }
 
     const onLoadMore = async() => {
-        console.log('onLoadMore')
         if (!finished.value){
             pagination.value[current] += 1
             await run(requestParams.value)
