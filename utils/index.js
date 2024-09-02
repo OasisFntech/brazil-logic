@@ -275,7 +275,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             symbol = '$'
             break
         case 'ID': // 印尼
-            symbol = 'Rp'
+            symbol = 'kRp'
             formatOptions.separator = '.'
             formatOptions.decimal = ','
             break
