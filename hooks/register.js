@@ -90,12 +90,51 @@ export const useRegister = ({
         }
     }
 
+    const onSubmitEmail = async (values) => {
+        if (!submitLoading.value) {
+            submitLoading.value = true
+
+            try {
+                const { account, password, mobile, code, referrer } = values
+
+                // 校验邮箱验证码
+                await api_fetch({
+                    url: COMMON_API_PATH.CHECK_EMAIL_V2_REGISTER,
+                    params: {
+                        email: mobile,
+                        code
+                    }
+                })
+
+                await api_fetch({
+                    url: COMMON_API_PATH.REGISTER,
+                    params: {
+                        username: account,
+                        nickName: mobile,
+                        email: mobile,
+                        code,
+                        inviterPhone: referrer,
+                        userType: 1,
+                        transactionPassword: '',
+                        loginPassword: await onEncode(password),
+                        exclusiveDomain: window.location.origin
+                    }
+                })
+
+                submitCallback?.()
+            } finally {
+                submitLoading.value = false
+            }
+        }
+    }
+
     return {
         formState,
         REGISTER_FORM_CONFIG: _.values(COMMON_FORM_CONFIG),
         checkLoading,
         onCheckAccount,
         submitLoading,
-        onSubmit
+        onSubmit,
+        onSubmitEmail
     }
 }

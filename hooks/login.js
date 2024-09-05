@@ -94,7 +94,8 @@ export const useMobileLogin = (callback) => {
                         url: COMMON_API_PATH.LOGIN_BY_MOBILE,
                         params: {
                             phone: formState.mobile,
-                            code: formState.code
+                            code: formState.code,
+                            registerType: 'PHONE'
                         }
                     })
 
@@ -123,6 +124,77 @@ export const useMobileLogin = (callback) => {
         disabled,
         loading,
         onMobileLogin,
+        updateCode
+    }
+}
+
+export const useEmailLogin = (callback) => {
+    const { onSetUserInfo, onRefreshUserInfo } = useUserInfoStore(),
+        { onRefreshReadStatus } = useMessageStore()
+
+    const formState = reactive({
+            email: '',
+            code: ''
+        }),
+        disabled = useFormDisabled(formState),
+        loading = ref(false)
+
+    const formConfig = [
+        COMMON_FORM_CONFIG.mobile,
+        COMMON_FORM_CONFIG.code
+    ]
+
+    const updateCode = (code) =>{
+        formState.code = code
+    }
+
+    const onEmailLogin = async() => {
+        if (!loading.value) {
+            loading.value = true
+            try {
+                const isRegister = await api_fetch({
+                    url: COMMON_API_PATH.CHECK_EMAIL_V2_REGISTER,
+                    method: FETCH_METHOD.GET,
+                    params: {
+                        email: formState.email,
+                        code: formState.code,
+                    }
+                })
+
+                if (isRegister) {
+                    const res = await api_fetch({
+                        url: COMMON_API_PATH.LOGIN_BY_MOBILE,
+                        params: {
+                            email: formState.email,
+                            code: formState.code,
+                            registerType: 'EMAIL'
+                        }
+                    })
+
+                    sessionStorage.clear()
+
+                    onSetUserInfo(res)
+                    onRefreshUserInfo()
+                    onRefreshReadStatus()
+                    NOTICE_SOCKET.emit(undefined, {
+                        memberId: res.memberId,
+                        token: res.token,
+                    })
+                } else {
+                    callback?.()
+                    return Promise.reject()
+                }
+            } finally {
+                loading.value = false
+            }
+        }
+    }
+
+    return {
+        formState,
+        disabled,
+        loading,
+        onEmailLogin,
         updateCode
     }
 }

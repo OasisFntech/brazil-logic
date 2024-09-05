@@ -34,6 +34,7 @@ export const COMMON_API_PATH = {
     CHECK_ACCOUNT_REGISTER: '/auth/member/checkAccountRegister',
     CHECK_MOBILE_REGISTER: '/auth/member/checkPhoneRegister',
     CHECK_MOBILE_V2_REGISTER: '/auth/member/v2/checkPhoneRegister',
+    CHECK_EMAIL_V2_REGISTER: '/auth/member/v2/checkEmailRegister',
     // 发送短信验证码
     SMS_SEND: '/member/sms/operlog/',
     // 检查短信验证码
@@ -46,6 +47,8 @@ export const COMMON_API_PATH = {
     LOGIN_BY_ACCOUNT: '/auth/member/login',
     // 手机号登录
     LOGIN_BY_MOBILE: '/auth/member/verificationLogin',
+    // 发送邮箱验证码
+    EMAIL_SEND: '/member/email/operlog/',
     /** 登录注册 */
 
     /** 新闻类 */

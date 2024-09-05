@@ -2,11 +2,12 @@ import { computed, ref } from 'vue'
 
 import { api_fetch, COMMON_API_PATH } from '../fetch'
 import { useCountdown } from './countdown'
-import { useMobileLogin } from './login'
+import { useEmailLogin, useMobileLogin } from './login'
 
 export const useSms = (name, { successTip, errorTip, tipText }) => {
     const { countdown, onCountdown } = useCountdown(name)
-    const { updateCode, formState } = useMobileLogin()
+    const { updateCode: updateMobileCode, formState: mobileFormState } = useMobileLogin()
+    const { updateCode: updateEmailCode, formState: emailFormState } = useEmailLogin()
 
     const loading = ref(false)
     const smsCode = ref(null)
@@ -51,7 +52,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
                 successTip?.(tipText)
                 onCountdown()
                 if (code === 1 && message) {
-                    updateCode(message)
+                    updateMobileCode(message)
                     smsCode.value = message
                 }
             } catch (err) {
@@ -62,9 +63,34 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
         }
     }
 
+    // 发送邮箱验证码
+    const onSendEmail = async (email) => {
+        if (!loading.value) {
+            loading.value = true
+            try {
+                const { code, message } = await api_fetch({
+                    url: `${COMMON_API_PATH.EMAIL_SEND}${email}`,
+                    options: {
+                        returnAll: true,
+                    }
+                })
+                successTip?.(tipText)
+                onCountdown()
+                if (code === 1 && message) {
+                    updateEmailCode(message)
+                    smsCode.value = message
+                }
+            } catch (err) {
+                errorTip?.(err.message)
+            } finally {
+                loading.value = false
+            }
+        }
+    }
 
     return {
         smsBtn,
         onSendSms,
+        onSendEmail,
     }
 }
