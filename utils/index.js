@@ -267,20 +267,20 @@ export const utils_currency_convert = (amount, options = {}) => {
 
     switch (countryCode) {
         case 'BRL': // 巴西
-            symbol = 'R$'
+            symbol = 'R$ '
             formatOptions.separator = '.'
             formatOptions.decimal = ','
             break
         case 'US': // 美国
-            symbol = '$'
+            symbol = '$ '
             break
         case 'ID': // 印尼
-            symbol = 'kRp'
+            symbol = 'Rp '
             formatOptions.separator = '.'
             formatOptions.decimal = ','
             break
         case 'NG': // 尼日利亚
-            symbol = '₦'
+            symbol = '₦ '
             break
         default:
             symbol = '$'
