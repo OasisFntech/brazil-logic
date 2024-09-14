@@ -127,6 +127,12 @@ export const useUserInfoStore = defineStore('userInfo', () => {
         ])
     }
 
+    const onNewRefreshUserInfo = () => {
+        Promise.all([
+            userInfoRun(),
+        ])
+    }
+
     return {
         userInfo,
         balance_visible,
@@ -135,7 +141,8 @@ export const useUserInfoStore = defineStore('userInfo', () => {
         onBalanceToggle,
         onSetUserInfo,
         onResetUserInfo,
-        onRefreshUserInfo
+        onRefreshUserInfo,
+        onNewRefreshUserInfo
     }
 }, {
     persist: {
