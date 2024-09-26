@@ -282,6 +282,9 @@ export const utils_currency_convert = (amount, options = {}) => {
         case 'NG': // 尼日利亚
             symbol = '₦ '
             break
+        case 'IN': // 印度
+            symbol = '₹ '
+            break
         default:
             symbol = '$'
             break
