@@ -4,7 +4,7 @@ import { api_fetch, COMMON_API_PATH } from '../fetch'
 import { useCountdown } from './countdown'
 import { useEmailLogin, useMobileLogin } from './login'
 
-export const useSms = (name, { successTip, errorTip, tipText }) => {
+export const useSms = (name, { successTip, errorTip, tipText, title = '发送验证码' }) => {
     const { countdown, onCountdown } = useCountdown(name)
     const { updateCode: updateMobileCode, formState: mobileFormState } = useMobileLogin()
     const { updateCode: updateEmailCode, formState: emailFormState } = useEmailLogin()
@@ -16,7 +16,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
         const isCounting = countdown.value === 0
 
         return {
-            text: isCounting ? '发送验证码' : `${countdown.value}s`,
+            text: isCounting ? title : `${countdown.value}s`,
             disabled: !isCounting,
             loading: loading.value,
             smsCode: smsCode.value
@@ -89,6 +89,7 @@ export const useSms = (name, { successTip, errorTip, tipText }) => {
     }
 
     return {
+        countdown,
         smsBtn,
         onSendSms,
         onSendEmail,
