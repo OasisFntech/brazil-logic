@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, unref } from 'vue'
 
 import { api_fetch, COMMON_API_PATH } from '../fetch'
 import { useCountdown } from './countdown'
@@ -16,7 +16,7 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
         const isCounting = countdown.value === 0
 
         return {
-            text: isCounting ? title : `${countdown.value}s`,
+            text: isCounting ? unref(title) : `${countdown.value}s`,
             disabled: !isCounting,
             loading: loading.value,
             smsCode: smsCode.value
