@@ -61,7 +61,7 @@ const initialValues = {
     inviteLink: null,
     backMoneyFreeze: '--',
     realBalance: null,
-    isAgent: true,
+    isAgent: false,
     // 合约净资产
     netAssets: '--',
 
@@ -76,7 +76,8 @@ const initialValues = {
     memberLevelId: '--',
     handlingFeePercent: '--',
     interestFeePercent: '--',
-    withdrawAmount: '--'
+    withdrawAmount: '--',
+    memberType: 0
 }
 
 export const useUserInfoStore = defineStore('userInfo', () => {
