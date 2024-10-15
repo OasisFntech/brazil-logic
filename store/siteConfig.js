@@ -61,7 +61,10 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
     const { response: logoRes } = useRequest({
         url: COMMON_API_PATH.PC_CONFIG,
         initialValues: {
-            logoAddress: ''
+            logoAddress: '',
+            exchange: '',
+            company: '',
+            timeZone: '',
         }
     })
 
