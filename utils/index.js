@@ -279,7 +279,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.separator = '.'
             formatOptions.decimal = ','
             break
-        case 'NG': // 尼日利亚
+        case 'NGN': // 尼日利亚
             symbol = '₦ '
             break
         case 'IN': // 印度
