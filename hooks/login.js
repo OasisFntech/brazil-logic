@@ -60,12 +60,14 @@ export const useMobileLogin = (bizType, callback) => {
     const { onSetUserInfo, onRefreshUserInfo } = useUserInfoStore(),
         { onRefreshReadStatus } = useMessageStore()
 
+    const emitList = ['transactionPassword']
+
     const formState = reactive({
             mobile: '',
             code: '',
             transactionPassword: ''
         }),
-        disabled = useFormDisabled(formState),
+        disabled = useFormDisabled(formState, emitList),
         loading = ref(false)
 
     const formConfig = [
