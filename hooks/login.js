@@ -56,13 +56,14 @@ export const useAccountLogin = () => {
     }
 }
 
-export const useMobileLogin = (callback) => {
+export const useMobileLogin = (bizType, callback) => {
     const { onSetUserInfo, onRefreshUserInfo } = useUserInfoStore(),
         { onRefreshReadStatus } = useMessageStore()
 
     const formState = reactive({
             mobile: '',
-            code: ''
+            code: '',
+            transactionPassword: ''
         }),
         disabled = useFormDisabled(formState),
         loading = ref(false)
@@ -86,6 +87,7 @@ export const useMobileLogin = (callback) => {
                     params: {
                         phone: formState.mobile,
                         code: formState.code,
+                        bizType: bizType
                     }
                 })
 
@@ -95,7 +97,7 @@ export const useMobileLogin = (callback) => {
                         params: {
                             phone: formState.mobile,
                             code: formState.code,
-                            registerType: 'PHONE'
+                            transactionPassword: formState.transactionPassword
                         }
                     })
 
