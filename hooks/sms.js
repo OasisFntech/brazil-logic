@@ -25,7 +25,7 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
 
 
     // 发送短信验证码
-    const onSendSms = async (phone, area) => {
+    const onSendSms = async ({ phone, area, type }) => {
         if (!loading.value) {
             // const isValidPhone = (phone, area) => {
             //     if (area === '86') {
@@ -44,7 +44,7 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
             loading.value = true
             try {
                 const { code, message } = await api_fetch({
-                    url: `${COMMON_API_PATH.SMS_SEND}${area}/${phone}`,
+                    url: `${COMMON_API_PATH.SMS_SEND}${area}/${phone}/${type}`,
                     options: {
                         returnAll: true,
                     }
