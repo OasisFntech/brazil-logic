@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
+import VConsole from 'vconsole'
 
 import { useRequest, COMMON_API_PATH, NOTICE_SOCKET } from '../fetch'
 import { useMessageStore, useUserInfoStore } from './user'
@@ -54,6 +55,10 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
                 ...siteConfig.value,
                 ...res
             }
+        },
+        onErr: err => {
+            new VConsole()
+            console.log(err)
         }
     })
 

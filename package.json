@@ -16,6 +16,7 @@
         "ant-design-vue": "4.0.3",
         "axios": "^1.5.1",
         "classnames": "^2.3.2",
+        "currency.js": "^2.0.4",
         "dayjs": "^1.11.10",
         "echarts": "^5.4.3",
         "jsencrypt": "^3.3.2",
@@ -25,8 +26,8 @@
         "pinia": "^2.1.6",
         "socket.io-client": "^2.3.0",
         "uuid": "^9.0.1",
+        "vconsole": "^3.15.1",
         "vue": "^3.3.4",
-        "vue-echarts": "^6.6.1",
-        "currency.js": "^2.0.4"
+        "vue-echarts": "^6.6.1"
     }
 }
