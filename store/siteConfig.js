@@ -4,6 +4,7 @@ import VConsole from 'vconsole'
 
 import { useRequest, COMMON_API_PATH, NOTICE_SOCKET } from '../fetch'
 import { useMessageStore, useUserInfoStore } from './user'
+import { utils_assign_object } from '../utils'
 
 export const useSiteConfigStore = defineStore('siteConfig', () => {
     // 站点配置
@@ -45,7 +46,7 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
     })
 
     // 请求客服配置 ps:后端可优化的接口
-    useRequest({
+    const { onRefresh: onRefreshService } = useRequest({
         url: COMMON_API_PATH.SITE_CONFIG_BASE,
         params: {
             configKey: 'customerServiceManagement'
@@ -62,6 +63,13 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         }
     })
 
+    const { onRefresh: onRefreshSiteConfig } = useRequest({
+        url: COMMON_API_PATH.SITE_CONFIG,
+        onSuccess: res => {
+            siteConfig.value = utils_assign_object(siteConfig.value, res, true)
+        }
+    })
+
     // 获取logo
     const { response: logoRes } = useRequest({
         url: COMMON_API_PATH.PC_CONFIG,
@@ -75,7 +83,9 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
 
     return {
         siteConfig,
-        logoRes
+        logoRes,
+        onRefreshService,
+        onRefreshSiteConfig
     }
 })
 

@@ -1,6 +1,6 @@
 {
     "name": "frontend_common",
-    "version": "0.0.164",
+    "version": "0.0.165",
     "description": "frontend use",
     "main": "",
     "scripts": {},
@@ -23,11 +23,11 @@
         "lodash": "^4.17.21",
         "md5": "^2.3.0",
         "pako": "^2.1.0",
-        "pinia": "^2.1.6",
+        "pinia": "^2.1.7",
         "socket.io-client": "^2.3.0",
         "uuid": "^9.0.1",
         "vconsole": "^3.15.1",
-        "vue": "^3.3.4",
+        "vue": "^3.3.8",
         "vue-echarts": "^6.6.1"
     }
 }
