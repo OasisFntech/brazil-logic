@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import VConsole from 'vconsole'
 
 import { useRequest, COMMON_API_PATH, NOTICE_SOCKET } from '../fetch'
 import { useMessageStore, useUserInfoStore } from './user'
@@ -42,29 +41,36 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         rebateSwitch: false,
         autoAgent: false,
         // 底部二维码地址 - Footer展示
-        qrCodeAddress: ''
-    })
-
-    // 请求客服配置 ps:后端可优化的接口
-    const { onRefresh: onRefreshService } = useRequest({
-        url: COMMON_API_PATH.SITE_CONFIG_BASE,
-        params: {
-            configKey: 'customerServiceManagement'
-        },
-        onSuccess: res => {
-            siteConfig.value = {
-                ...siteConfig.value,
-                ...res
-            }
-        },
-        onErr: err => {
-            new VConsole()
-            console.log(err)
-        }
+        qrCodeAddress: '',
+        withdrawUseFree: false,
+        followBuyUseFree: false,
+        needCheckOldPwd: false,
+        bindCardCheckTxPwd: false,
+        registerSMS: 1,
+        isCloseSMS: 1,
+        changeSMS: 1,
+        showCapitalRecord: 1,
+        showRechargeRecord: 1,
+        withdrawPriority: 1,
     })
 
     const { onRefresh: onRefreshSiteConfig } = useRequest({
         url: COMMON_API_PATH.SITE_CONFIG,
+        onSuccess: res => {
+            siteConfig.value = utils_assign_object(siteConfig.value, res, true)
+            run({
+                configKey: 'customerServiceManagement'
+            })
+        }
+    })
+
+    // 请求客服配置 ps:后端可优化的接口
+    const { onRefresh: onRefreshService, run } = useRequest({
+        url: COMMON_API_PATH.SITE_CONFIG_BASE,
+        // params: {
+        //     configKey: 'customerServiceManagement'
+        // },
+        manual: true,
         onSuccess: res => {
             siteConfig.value = utils_assign_object(siteConfig.value, res, true)
         }
