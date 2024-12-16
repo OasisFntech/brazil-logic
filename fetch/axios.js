@@ -14,9 +14,9 @@ function onFetchErr(err) {
     return Promise.reject(err)
 }
 
-function axiosInterceptors({ request, response }) {
-    axios.interceptors.request.use(request, onFetchErr)
-    axios.interceptors.response.use(response, onFetchErr)
+function axiosInterceptors({ request, requestError, response, responseError }) {
+    axios.interceptors.request.use(request, requestError ?? onFetchErr)
+    axios.interceptors.response.use(response, responseError ?? onFetchErr)
 }
 
 export default axios
