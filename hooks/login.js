@@ -94,26 +94,31 @@ export const useMobileLogin = (bizType, callback) => {
                 })
 
                 if (isRegister) {
-                    const res = await api_fetch({
-                        url: COMMON_API_PATH.LOGIN_BY_MOBILE,
-                        params: {
-                            phone: formState.mobile,
-                            code: formState.code,
-                            transactionPassword: formState.transactionPassword
-                        }
-                    })
+                    if (bizType === 'register') {
+                        callback?.(isRegister)
+                        return Promise.reject()
+                    } else {
+                        const res = await api_fetch({
+                            url: COMMON_API_PATH.LOGIN_BY_MOBILE,
+                            params: {
+                                phone: formState.mobile,
+                                code: formState.code,
+                                transactionPassword: formState.transactionPassword
+                            }
+                        })
 
-                    sessionStorage.clear()
+                        sessionStorage.clear()
 
-                    onSetUserInfo(res)
-                    onRefreshUserInfo()
-                    onRefreshReadStatus()
-                    NOTICE_SOCKET.emit(undefined, {
-                        memberId: res.memberId,
-                        token: res.token,
-                    })
+                        onSetUserInfo(res)
+                        onRefreshUserInfo()
+                        onRefreshReadStatus()
+                        NOTICE_SOCKET.emit(undefined, {
+                            memberId: res.memberId,
+                            token: res.token,
+                        })
+                    }
                 } else {
-                    callback?.()
+                    callback?.(isRegister)
                     return Promise.reject()
                 }
             } finally {
