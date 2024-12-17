@@ -50,6 +50,9 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
                     },
                     options: {
                         returnAll: true,
+                        headers: {
+                            'Content-Type':'application/x-www-form-urlencoded'
+                        }
                     }
                 })
                 successTip?.(tipText)
