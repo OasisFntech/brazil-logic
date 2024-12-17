@@ -45,8 +45,10 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
             try {
                 const { code, message } = await api_fetch({
                     url: `${COMMON_API_PATH.SMS_SEND}${area}/${phone}/${type}`,
+                    params: {
+                        imgCode
+                    },
                     options: {
-                        imgCode,
                         returnAll: true,
                     }
                 })
