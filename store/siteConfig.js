@@ -1,9 +1,11 @@
 import { ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
+import { useTitle } from '@vueuse/core'
 
 import { useRequest, COMMON_API_PATH, NOTICE_SOCKET } from '../fetch'
 import { useMessageStore, useUserInfoStore } from './user'
-import { utils_assign_object } from '../utils'
+import { utils_assets_src, utils_assign_object, utils_favicon } from '../utils'
+import { assetsDomains } from '../config'
 
 export const useSiteConfigStore = defineStore('siteConfig', () => {
     // 站点配置
@@ -52,15 +54,46 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         showCapitalRecord: 1,
         showRechargeRecord: 1,
         withdrawPriority: 1,
+
+        // 资源域名
+        imgDomains: '',
+        regIpLimit: '',
+        dailySmsLimit: 0,
+        enableInviteCode: false,
+        canModifyPhone: false,
+        turntableLottery: '',
+        tenant: '',
+        showWithdrawRecord: 0,
+        ipToken: null,
+        yueBaoLimitEnable: false,
+        yueBaoLimitStart: '',
+        yueBaoLimitEnd: '',
     })
 
     const { onRefresh: onRefreshSiteConfig } = useRequest({
         url: COMMON_API_PATH.SITE_CONFIG,
-        onSuccess: res => {
+        onSuccess: async(res) => {
+            if (!res.imgDomains || res.imgDomains.trim() === '') {
+                console.warn('No image domains provided');
+            } else {
+                const domains = res.imgDomains.split(',')
+                if (domains.length) {
+                    domains.forEach(e => {
+                        const img = new Image()
+                        img.src = `https://${e}/media/image/check_image_0101.png`
+                        img.onload = () => {
+                            assetsDomains.push(e)
+                        }
+                    })
+                }
+            }
+
             siteConfig.value = utils_assign_object(siteConfig.value, res, true)
-            run({
+            useTitle(res.siteName)
+            await run({
                 configKey: 'customerServiceManagement'
             })
+            utils_favicon(utils_assets_src(res.titleAddress))
         }
     })
 
@@ -84,7 +117,8 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
             exchange: '',
             company: '',
             timeZone: '',
-        }
+        },
+        formatResult: res => ({ ...res, logoAddress: utils_assets_src(res.logoAddress) })
     })
 
     return {

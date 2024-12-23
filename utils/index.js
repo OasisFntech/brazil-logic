@@ -3,6 +3,7 @@ import { useClipboard } from '@vueuse/core'
 import _ from 'lodash'
 import currency from 'currency.js'
 
+import { assetsDomains } from '../config'
 export * from './charts'
 export * from './stock'
 
@@ -297,3 +298,25 @@ export const utils_currency_convert = (amount, options = {}) => {
     return currency(amount, { ...formatOptions, symbol })
 }
 
+/**
+ * @function utils_assets_src
+ * @description 替换资源路径
+ * @param src {string} 资源路径
+ * @return string
+ * */
+export const utils_assets_src = (src) => {
+    const { VITE_ASSETS_BASE, VITE_ASSETS_REPLACE, VITE_ASSETS_BASE1 } = import.meta.env
+
+    const replace = assetsDomains[0] ?? VITE_ASSETS_REPLACE
+
+    console.log(!_.isEqual(VITE_ASSETS_BASE, replace))
+    if (VITE_ASSETS_BASE && replace && !_.isEqual(VITE_ASSETS_BASE, replace)) {
+        src = src.replace(VITE_ASSETS_BASE, replace)
+    }
+
+    if (VITE_ASSETS_BASE1 && replace && !_.isEqual(VITE_ASSETS_BASE1, replace)) {
+        src = src.replace(VITE_ASSETS_BASE1, replace)
+    }
+
+    return src
+}
