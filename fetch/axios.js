@@ -1,8 +1,9 @@
 import axios from 'axios'
 
-const instance = axios.create()
+const instance = axios.create({
+    baseURL: '/api'
+})
 
-instance.defaults.baseURL = '/api'
 function axiosDefaultConfig(config) {
     Object.entries(config).forEach(e => {
         const [ key, val ] = e

@@ -95,6 +95,7 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
     }
 
     return {
+        smsCode,
         countdown,
         smsBtn,
         onSendSms,
