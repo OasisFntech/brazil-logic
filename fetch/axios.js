@@ -1,11 +1,13 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = '/api'
+const instance = axios.create()
+
+instance.defaults.baseURL = '/api'
 function axiosDefaultConfig(config) {
     Object.entries(config).forEach(e => {
         const [ key, val ] = e
 
-        axios.defaults[key] = val
+        instance.defaults[key] = val
     })
 }
 
@@ -15,11 +17,11 @@ function onFetchErr(err) {
 }
 
 function axiosInterceptors({ request, requestError, response, responseError }) {
-    axios.interceptors.request.use(request, requestError ?? onFetchErr)
-    axios.interceptors.response.use(response, responseError ?? onFetchErr)
+    instance.interceptors.request.use(request, requestError ?? onFetchErr)
+    instance.interceptors.response.use(response, responseError ?? onFetchErr)
 }
 
-export default axios
+export default instance
 
 export {
     axiosInterceptors,
