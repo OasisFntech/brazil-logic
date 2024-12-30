@@ -176,7 +176,8 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         siteConfig,
         logoRes,
         onRefreshService,
-        onRefreshSiteConfig
+        onRefreshSiteConfig,
+        validateSavedDomain
     }
 })
 
