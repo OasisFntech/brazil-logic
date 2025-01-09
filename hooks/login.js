@@ -167,6 +167,7 @@ export const useEmailLogin = (callback) => {
                     params: {
                         email: formState.email,
                         code: formState.code,
+                        bizType: 'login'
                     }
                 })
 
