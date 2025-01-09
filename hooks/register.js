@@ -117,7 +117,8 @@ export const useRegister = ({
                     url: COMMON_API_PATH.CHECK_EMAIL_V2_REGISTER,
                     params: {
                         email: mobile,
-                        code
+                        code,
+                        bizType: 'register'
                     }
                 })
 
