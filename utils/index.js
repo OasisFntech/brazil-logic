@@ -286,6 +286,16 @@ export const utils_currency_convert = (amount, options = {}) => {
         case 'IN': // 印度
             symbol = '₹ '
             break
+        case 'VND': // 越南
+            symbol = '₫ '
+            formatOptions.separator = '.'
+            formatOptions.decimal = ','
+            break
+        case 'PHP': // 菲律宾
+            symbol = '₱ '
+            formatOptions.separator = ','
+            formatOptions.decimal = '.'
+            break
         default:
             symbol = '$'
             break
