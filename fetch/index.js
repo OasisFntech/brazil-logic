@@ -1,4 +1,4 @@
-import { computed, isRef, ref } from 'vue'
+import { computed, isRef, ref, unref } from 'vue'
 import { set } from '@vueuse/core'
 
 export * from './apis'
@@ -68,7 +68,7 @@ export function useRequest({
             const actualParams = runParams ?? requestParams.value
             try {
                 const params = {
-                    url,
+                    url: unref(url),
                     params: actualParams,
                     method
                 }
