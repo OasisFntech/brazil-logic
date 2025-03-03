@@ -296,6 +296,11 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.separator = ','
             formatOptions.decimal = '.'
             break
+        case 'ZAR': // 南非
+            symbol = 'R '
+            formatOptions.separator = ' '
+            formatOptions.decimal = '.'
+            break
         default:
             symbol = '$'
             break
