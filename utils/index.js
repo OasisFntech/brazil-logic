@@ -302,7 +302,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.decimal = '.'
             break
         default:
-            symbol = '$'
+            symbol = ''
             break
     }
 
