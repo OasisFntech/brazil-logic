@@ -8,7 +8,7 @@ const onClear = () => {
     countdown_interval = null
 }
 
-export const useCountdown = (name = 'noname') => {
+export const useCountdown = (name = 'noname', defaultTime = 60) => {
     const key = `${name}-countdown`,
         countdown = ref(0)
 
@@ -29,9 +29,8 @@ export const useCountdown = (name = 'noname') => {
         }, 1000)
     }
 
-    // 开始倒计时
-    const onCountdown = (time = 60) => {
-        countdown.value = time
+    const onCountdown = (time = defaultTime) => {
+        countdown.value = +time
         onStart()
     }
 
