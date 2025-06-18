@@ -64,6 +64,7 @@ export const COMMON_API_PATH = {
     // 用户信息
     USERINFO: '/member/member/getMyPageData',
     USERINFO_BASE: '/member/member/getMemberBaseInfo',
+    CHECK_REAL_NAME: '/member/realnameManagement/checkRealName',
 
     MESSAGE_STATUS: '/member/statistics/messagestatistics',
     /** 用户类 */

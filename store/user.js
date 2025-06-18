@@ -121,16 +121,30 @@ export const useUserInfoStore = defineStore('userInfo', () => {
         }
     })
 
+    const { loading: realNameLoading, run: runCheckRealName } = useRequest({
+        url: COMMON_API_PATH.CHECK_REAL_NAME,
+        manual: true,
+        onSuccess: res => {
+            if (res) {
+                userInfo.value.reviewState = res.reviewState
+                userInfo.value.type = res.type
+            }
+        }
+    })
+
+
     const onRefreshUserInfo = () => {
         Promise.all([
             userInfoRun(),
-            userBaseInfoRun()
+            userBaseInfoRun(),
+            runCheckRealName()
         ])
     }
 
     const onNewRefreshUserInfo = () => {
         Promise.all([
             userInfoRun(),
+            runCheckRealName()
         ])
     }
 
