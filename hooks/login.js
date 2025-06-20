@@ -12,7 +12,8 @@ export const useAccountLogin = () => {
 
     const formState = reactive({
             account: '',
-            password: ''
+            password: '',
+            region: ''
         }),
         disabled = useFormDisabled(formState),
         loading = ref(false)
@@ -25,7 +26,8 @@ export const useAccountLogin = () => {
                     url: COMMON_API_PATH.LOGIN_BY_ACCOUNT,
                     params: {
                         username: formState.account,
-                        password: await onEncode(formState.password)
+                        password: await onEncode(formState.password),
+                        region: formState.region,
                     }
                 })
 
