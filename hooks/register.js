@@ -52,7 +52,7 @@ export const useRegister = ({
     }
 
     // 注册提交
-    const onSubmit = async (values) => {
+    const onSubmit = async (values, useStatic = false) => {
         if (!submitLoading.value) {
             submitLoading.value = true
 
@@ -91,8 +91,8 @@ export const useRegister = ({
                             // code,
                             inviterPhone: referrer,
                             userType: 1,
-                            transactionPassword: await onEncode(transactionPassword),
-                            loginPassword: await onEncode(password),
+                            transactionPassword: await onEncode(transactionPassword, useStatic),
+                            loginPassword: await onEncode(password, useStatic),
                             exclusiveDomain: window.location.origin
                         }
                     })
@@ -105,7 +105,7 @@ export const useRegister = ({
         }
     }
 
-    const onSubmitEmail = async (values) => {
+    const onSubmitEmail = async (values, useStatic = false) => {
         if (!submitLoading.value) {
             submitLoading.value = true
 
@@ -132,7 +132,7 @@ export const useRegister = ({
                         inviterPhone: referrer,
                         userType: 1,
                         transactionPassword: '',
-                        loginPassword: await onEncode(password),
+                        loginPassword: await onEncode(password, useStatic),
                         exclusiveDomain: window.location.origin
                     }
                 })

@@ -5,7 +5,7 @@ import { api_fetch, COMMON_API_PATH, FETCH_METHOD, NOTICE_SOCKET } from '../fetc
 import { usePublicKeyStore, useUserInfoStore, useMessageStore } from '../store'
 import { useFormDisabled } from './index'
 
-export const useAccountLogin = () => {
+export const useAccountLogin = (useStatic = false) => {
     const { onEncode } = usePublicKeyStore(),
         { onSetUserInfo, onRefreshUserInfo } = useUserInfoStore(),
         { onRefreshReadStatus } = useMessageStore()
@@ -26,7 +26,7 @@ export const useAccountLogin = () => {
                     url: COMMON_API_PATH.LOGIN_BY_ACCOUNT,
                     params: {
                         username: formState.account,
-                        password: await onEncode(formState.password),
+                        password: await onEncode(formState.password, useStatic),
                         region: formState.region,
                     }
                 })
