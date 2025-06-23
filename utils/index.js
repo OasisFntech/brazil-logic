@@ -301,6 +301,11 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.separator = ' '
             formatOptions.decimal = '.'
             break
+        case 'CNY': // 人民币
+            symbol = '¥ '
+            formatOptions.separator = ','
+            formatOptions.decimal = '.'
+            break
         default:
             symbol = ''
             break
