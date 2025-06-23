@@ -15,7 +15,8 @@ export const usePublicKeyStore = defineStore('publicKey', () => {
     const keyCache = ref('')
     const { response, onRefresh } = useRequest({
         url: COMMON_API_PATH.PUBLIC_KEY,
-        initialValues: ''
+        initialValues: '',
+        manual: true
     })
 
     const onEncode = async (content, useStatic = false) => {
