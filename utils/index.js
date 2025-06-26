@@ -306,6 +306,9 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.separator = ','
             formatOptions.decimal = '.'
             break
+        case 'USDT': // USDT
+            symbol = 'USDT '
+            break
         default:
             symbol = ''
             break
