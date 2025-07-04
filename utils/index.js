@@ -272,7 +272,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             formatOptions.separator = '.'
             formatOptions.decimal = ','
             break
-        case 'US': // 美国
+        case 'USD': // 美国
             symbol = '$ '
             break
         case 'ID': // 印尼
