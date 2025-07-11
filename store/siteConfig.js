@@ -68,6 +68,8 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         yueBaoLimitEnable: false,
         yueBaoLimitStart: '',
         yueBaoLimitEnd: '',
+        // 余额宝审核开关
+        yueBaoReviewSwitch: false,
     })
 
     // 检查域名是否可用的方法
