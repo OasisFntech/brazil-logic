@@ -70,6 +70,8 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         yueBaoLimitEnd: '',
         // 余额宝审核开关
         yueBaoReviewSwitch: false,
+        // 邮箱开关
+        emailSwitch: false
     })
 
     // 检查域名是否可用的方法
