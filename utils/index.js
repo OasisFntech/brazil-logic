@@ -309,6 +309,11 @@ export const utils_currency_convert = (amount, options = {}) => {
         case 'USDT': // USDT
             symbol = 'USDT '
             break
+        case 'EUR': // 德国/欧元
+            symbol = '€ '
+            formatOptions.separator = '.'
+            formatOptions.decimal = ','
+            break
         default:
             symbol = ''
             break
