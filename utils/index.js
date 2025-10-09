@@ -259,11 +259,36 @@ export const formatDateTime_bx = (dateTime, options = {}) => {
 
 // 根据不同国家的货币格式化金额
 export const utils_currency_convert = (amount, options = {}) => {
-    const { countryCode = 'BRL', fixed = 2, showSymbol = false } = options
+    const { countryCode = 'BRL', fixed = 2, showSymbol = false, safe = false } = options
 
     let symbol = ''
     let formatOptions = {
         precision: fixed
+    }
+
+    if (safe && amount !== 0 && !isNaN(amount)) {
+        const absAmount = Math.abs(amount)
+
+        const amountStr = absAmount.toString()
+        const [_, decimalPart = ''] = amountStr.split('.')
+
+        if (decimalPart) {
+            let firstNonZeroIndex = -1
+            for (let i = 0; i < decimalPart.length; i++) {
+                if (decimalPart[i] !== '0') {
+                    firstNonZeroIndex = i
+                    break
+                }
+            }
+
+            if (firstNonZeroIndex !== -1) {
+                formatOptions.precision = firstNonZeroIndex + fixed
+            } else {
+                formatOptions.precision = fixed
+            }
+        } else {
+            formatOptions.precision = 0
+        }
     }
 
     switch (countryCode) {
