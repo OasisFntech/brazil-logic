@@ -348,7 +348,28 @@ export const utils_currency_convert = (amount, options = {}) => {
         symbol = ''
     }
 
-    return currency(amount, { ...formatOptions, symbol })
+    const result = currency(amount, { ...formatOptions, symbol })
+
+    if (safe) {
+        const resultStr = result.format()
+        const decimalSymbol = formatOptions.decimal || '.'
+
+        if (resultStr.includes(decimalSymbol)) {
+            const parts = resultStr.split(decimalSymbol)
+            const beforeDecimal = parts[0]
+            let afterDecimal = parts[1]
+
+            afterDecimal = afterDecimal.replace(/0+$/, '')
+
+            if (afterDecimal === '') {
+                return beforeDecimal
+            }
+
+            return `${beforeDecimal}${decimalSymbol}${afterDecimal}`
+        }
+    }
+
+    return result
 }
 
 /**
