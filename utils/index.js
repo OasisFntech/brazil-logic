@@ -323,7 +323,7 @@ export const utils_currency_convert = (amount, options = {}) => {
             break
         case 'ZAR': // 南非
             symbol = 'R '
-            formatOptions.separator = ' '
+            formatOptions.separator = ','
             formatOptions.decimal = '.'
             break
         case 'CNY': // 人民币
