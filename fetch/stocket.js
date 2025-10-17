@@ -21,7 +21,7 @@ const saveToLocalStorage = (key, value) => {
     localStorage.setItem(key, value);
 };
 
-export const createSocket = async (socketUri) => {
+export const createSocket = async (socketUri, options = {}) => {
     let uris = socketUri.split(','); // 拆分逗号隔开的地址为数组
     const lastSuccessfulUri = localStorage.getItem(getKey(socketUri));
 
@@ -39,6 +39,7 @@ export const createSocket = async (socketUri) => {
                     {
                         transports: ['websocket'],
                         deviceID,
+                      ...options
                     }
                 )
 
