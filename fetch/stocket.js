@@ -9,6 +9,8 @@ export const SOCKET_EVENTS = {
     UNSUBSCRIBE: 'unsubscribe'
 }
 
+const deviceID = 'webclip_' + v4()
+
 export let socket = null
 const getKey = (socketUri) => {
     return "ENV_"+import.meta.env.PROD+"_"+import.meta.env.MODE+"_socket_"+md5(socketUri);
@@ -35,9 +37,12 @@ export const createSocket = async (socketUri, options = {}) => {
                 socket = SocketIO(
                     uri,
                     {
-                        deviceID: 'webclip_' + v4(),
                         transports: ['websocket'],
-                        ...options
+                        ...options,
+                        query: {
+                            deviceID,
+                            ...(options.query || {})
+                        },
                     }
                 )
 
