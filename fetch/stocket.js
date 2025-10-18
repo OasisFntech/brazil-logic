@@ -37,11 +37,8 @@ export const createSocket = async (socketUri, options = {}) => {
                 socket = SocketIO(
                     uri,
                     {
+                        deviceID,
                         transports: ['websocket'],
-                        query: {
-                            deviceID,
-                            ...(options.query || {})
-                        },
                         ...options
                     }
                 )
