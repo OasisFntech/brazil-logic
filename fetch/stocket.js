@@ -4,8 +4,6 @@ import md5 from 'md5'
 
 import { utils_base64 } from '../utils'
 
-const deviceID = 'webclip_' + v4()
-
 export const SOCKET_EVENTS = {
     SUBSCRIBE: 'subscribe',
     UNSUBSCRIBE: 'unsubscribe'
@@ -37,7 +35,7 @@ export const createSocket = async (socketUri, options = {}) => {
                 socket = SocketIO(
                     uri,
                     {
-                        deviceID,
+                        deviceID: 'webclip_' + v4(),
                         transports: ['websocket'],
                         ...options
                     }
