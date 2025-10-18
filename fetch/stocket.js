@@ -35,11 +35,14 @@ export const createSocket = async (socketUri, options = {}) => {
             // 尝试建立连接，使用 Promise 包装以便在连接成功时 resolve，连接失败时 reject
             await new Promise((resolve, reject) => {
                 socket = SocketIO(
-                    `${uri}?deviceID=${deviceID}`,
+                    uri,
                     {
                         transports: ['websocket'],
-                        deviceID,
-                      ...options
+                        query: {
+                            deviceID,
+                            ...(options.query || {})
+                        },
+                        ...options
                     }
                 )
 
