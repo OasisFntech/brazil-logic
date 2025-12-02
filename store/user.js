@@ -38,7 +38,7 @@ const initialValues = {
     level: '',
     commissionPercent: null,
     // 总资产
-    totalAssets: '--',
+    totalAssets: '',
     // 钱包余额
     amount: '--',
     // 提现冻结
