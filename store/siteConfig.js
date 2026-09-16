@@ -71,7 +71,15 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         // 余额宝审核开关
         yueBaoReviewSwitch: false,
         // 邮箱开关
-        emailSwitch: false
+        emailSwitch: false,
+        // 网站维护开关
+        maintenanceSwitch: false,
+        // 维护提示文本(中文)
+        maintenanceTextZh: '',
+        // 维护提示文本(英文)
+        maintenanceTextEn: '',
+        // 网站恢复时间(毫秒时间戳)
+        maintenanceEndTime: 0
     })
 
     // 检查域名是否可用的方法
