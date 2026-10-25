@@ -128,9 +128,7 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
 
             siteConfig.value = utils_assign_object(siteConfig.value, res, true)
             useTitle(res.siteName)
-            await run({
-                configKey: 'customerServiceManagement',
-            })
+            await run()
             utils_favicon(utils_assets_src(res.titleAddress))
         }
     })
@@ -160,12 +158,9 @@ export const useSiteConfigStore = defineStore('siteConfig', () => {
         }
     }
 
-    // 请求客服配置 ps:后端可优化的接口
+    // 客服在游客首页和登录页也需要使用，调用专用公开接口。
     const { onRefresh: onRefreshService, run } = useRequest({
-        url: COMMON_API_PATH.SITE_CONFIG_BASE,
-        // params: {
-        //     configKey: 'customerServiceManagement'
-        // },
+        url: COMMON_API_PATH.SERVICE,
         manual: true,
         onSuccess: res => {
             siteConfig.value = utils_assign_object(siteConfig.value, res, true)
