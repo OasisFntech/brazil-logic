@@ -55,6 +55,10 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
                         }
                     }
                 })
+                if (code !== 1) {
+                    errorTip?.(message)
+                    return
+                }
                 successTip?.(tipText)
                 onCountdown()
                 if (code === 1 && message) {
@@ -80,6 +84,10 @@ export const useSms = (name, { successTip, errorTip, tipText, title = '发送验
                         returnAll: true,
                     }
                 })
+                if (code !== 1) {
+                    errorTip?.(message)
+                    return
+                }
                 successTip?.(tipText)
                 onCountdown()
                 if (code === 1 && message) {
