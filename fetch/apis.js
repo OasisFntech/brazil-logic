@@ -40,7 +40,7 @@ export const COMMON_API_PATH = {
     // 检查短信验证码
     SMS_CHECK: '/member/member/codeCheck',
     // 密码加密公钥
-    PUBLIC_KEY: '/auth/member/getPublicKey',
+    PUBLIC_KEY_MEMBER: '/auth/member/getPublicKey',
     // 注册
     REGISTER: '/auth/member/register',
     // 账号密码登录
